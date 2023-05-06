@@ -13,12 +13,13 @@ import { MessageService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  messageService: MessageService;
+  // messageService: MessageService;
 
-  constructor() {
-    //Do not do this on real app, we will use dependency injection
-    this.messageService = new MessageService();
-  }
+  // constructor() {
+  //   this.messageService = new MessageService();
+  // }
+
+  constructor(public messageService: MessageService) {} //typescript equivalent to what is written above
 
   @Get()
   listMessages() {
@@ -33,10 +34,10 @@ export class MessagesController {
   @Get('/:id')
   async getMessage(@Param('id') id: string) {
     const message = await this.messageService.findOne(id);
-    
+
     if (!message) {
       throw new NotFoundException('message not found');
     }
-    return message
+    return message;
   }
 }
